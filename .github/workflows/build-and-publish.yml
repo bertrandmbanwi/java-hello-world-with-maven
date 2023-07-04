@@ -1,0 +1,35 @@
+name: Build and Publish to GitHub Packages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Prepare Release
+      run: mvn --batch-mode release:clean release:prepare -Darguments="-Dmaven.javadoc.skip=true -Dmaven.test.skipTests=true -Dmaven.test.skip=true" -Dusername=${{ secrets.GITHUB_USERNAME }} -Dpassword=${{ secrets.GITHUB_TOKEN }}
+    - name: Perform Release
+      run: mvn --batch-mode release:perform -Darguments="-Dmaven.javadoc.skip=true -Dmaven.test.skipTests=true -Dmaven.test.skip=true" -Dusername=${{ secrets.GITHUB_USERNAME }} -Dpassword=${{ secrets.GITHUB_TOKEN }}
+    - name: Publish to GitHub Packages
+      run: mvn deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build Docker image
+      run: docker build -t my-app .
+    - name: Log into GitHub Container Registry
+      run: echo "${{ secrets.GITHUB_TOKEN}}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    - name: Push Docker image
+      run: docker tag my-app ghcr.io/${{ github.repository }}/my-app:latest && docker push ghcr.io/${{ github.repository }}/my-app:latest
