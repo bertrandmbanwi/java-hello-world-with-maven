@@ -5,6 +5,7 @@
     <artifactId>hello-world</artifactId>
     <packaging>jar</packaging>
     <version>0.1.2-SNAPSHOT</version>
+    <url>http://maven.apache.org</url>
 
     <scm>
         <url>https://github.com/bertrandmbanwi/java-hello-world-with-maven.git</url>
@@ -12,6 +13,24 @@
         <developerConnection>scm:git:https://github.com/bertrandmbanwi/java-hello-world-with-maven.git</developerConnection>
         <tag>0.1.2</tag>
     </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/bertrandmbanwi/java-hello-world-with-maven</url>
+        </repository>
+    </distributionManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>3.2.0</version>
+            <type>maven-plugin</type>
+        </dependency>
+    </dependencies>
+
 
     <properties>
         <java.version>11</java.version>
@@ -56,22 +75,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <version>3.2.0</version>
-            <type>maven-plugin</type>
-        </dependency>
-    </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/bertrandmbanwi/java-hello-world-with-maven</url>
-        </repository>
-    </distributionManagement>
 
 </project>
