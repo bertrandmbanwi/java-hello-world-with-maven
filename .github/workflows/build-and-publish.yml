@@ -37,8 +37,24 @@ jobs:
     - name: Prepare and Perform Maven Release
       run: mvn --batch-mode release:clean release:prepare release:perform -Darguments="-Dmaven.javadoc.skip=true -Dmaven.test.skipTests=true -Dmaven.test.skip=true" -Dusername=${{ github.actor }} -Dpassword=${{ secrets.RELEASE_TOKEN }}
 
-    - name: Publish to GitHub Packages
-      run: mvn deploy
+    - name: Publish to GitHub Packages Apache Maven
+      uses: whelk-io/maven-settings-xml-action@v21
+      with:
+        repositories: >-
+          [
+            {
+              "id": "github",
+              "url": "https://maven.pkg.github.com/bertrandmbanwi/java-hello-world-with-maven"
+            }
+          ]
+        servers: >-
+          [
+            {
+              "id": "github",
+              "username": "${{ github.actor }}",
+              "password": "${{ secrets.RELEASE_TOKEN }}"
+            }
+          ]
 
     - name: Build Docker image
       run: docker build -t my-app .
