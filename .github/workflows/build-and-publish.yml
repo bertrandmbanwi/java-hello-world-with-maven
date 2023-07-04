@@ -30,7 +30,7 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Prepare and Perform Maven Release
-      run: mvn --batch-mode release:clean release:prepare release:perform -Darguments="-Dmaven.javadoc.skip=true -Dmaven.test.skipTests=true -Dmaven.test.skip=true" -Dusername=${{ github.actor }} -Dpassword=${{ secrets.GITHUB_TOKEN }}
+      run: mvn --batch-mode release:clean release:prepare release:perform -Darguments="-Dmaven.javadoc.skip=true -Dmaven.test.skipTests=true -Dmaven.test.skip=true" -Dusername=${{ github.actor }} -Dpassword=${{ secrets.RELEASE_TOKEN }}
 
     - name: Publish to GitHub Packages
       run: mvn deploy
