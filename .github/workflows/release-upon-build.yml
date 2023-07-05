@@ -3,7 +3,9 @@ name: Build, Publish, and Release to GitHub Packages
 on:
   workflow_dispatch:
   push:
-    branches: [ '**' ] # Triggered by any push to any branch
+    branches:
+      - '**'  # Triggered by any push to any branch
+      - '!main'  # Except the main branch
   pull_request:
     types: [ closed ]  # Triggered when a pull request is closed
     branches: [ main ] # Only when the pull request is into the main branch
