@@ -3,7 +3,7 @@ name: Build and Publish to GitHub Packages
 on:
   workflow_dispatch:
   push:
-    branches: [ developbranch ]
+    branches: [ main ]
   pull_request:
     types: [ closed ]
     branches: [ main ]
