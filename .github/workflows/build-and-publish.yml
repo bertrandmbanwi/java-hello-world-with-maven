@@ -1,62 +1,62 @@
-name: Build and Publish to GitHub Packages
+# name: Build and Publish to GitHub Packages
 
-on:
-  workflow_dispatch:
-  push:
-    branches: [ main ]
-  pull_request:
-    types: [ closed ]
-    branches: [ main ]
+# on:
+#   workflow_dispatch:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     types: [ closed ]
+#     branches: [ main ]
 
-jobs:
-  build:
-    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.head_ref }}
-        token: ${{ secrets.RELEASE_TOKEN}}
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: 11
-        distribution: 'adopt'
-        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
+#     steps:
+#     - uses: actions/checkout@v2
+#       with:
+#         ref: ${{ github.head_ref }}
+#         token: ${{ secrets.RELEASE_TOKEN}}
+#     - name: Set up JDK 11
+#       uses: actions/setup-java@v2
+#       with:
+#         java-version: 11
+#         distribution: 'adopt'
+#         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+#         settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-    - name: Set Git identity
-      run: |
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"
+#     - name: Set Git identity
+#       run: |
+#         git config --global user.email "actions@github.com"
+#         git config --global user.name "GitHub Actions"
 
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+#     - name: Build with Maven
+#       run: mvn -B package --file pom.xml
 
-    - name: Publish to GitHub Packages Apache Maven
-      uses: whelk-io/maven-settings-xml-action@v21
-      with:
-        repositories: >-
-          [
-            {
-              "id": "github",
-              "url": "https://maven.pkg.github.com/bertrandmbanwi/java-hello-world-with-maven"
-            }
-          ]
-        servers: >-
-          [
-            {
-              "id": "github",
-              "username": "${{ github.actor }}",
-              "password": "${{ secrets.RELEASE_TOKEN }}"
-            }
-          ]
+#     - name: Publish to GitHub Packages Apache Maven
+#       uses: whelk-io/maven-settings-xml-action@v21
+#       with:
+#         repositories: >-
+#           [
+#             {
+#               "id": "github",
+#               "url": "https://maven.pkg.github.com/bertrandmbanwi/java-hello-world-with-maven"
+#             }
+#           ]
+#         servers: >-
+#           [
+#             {
+#               "id": "github",
+#               "username": "${{ github.actor }}",
+#               "password": "${{ secrets.RELEASE_TOKEN }}"
+#             }
+#           ]
 
-    - name: Prepare and Perform Maven Release
-      run: mvn --batch-mode release:clean release:prepare release:perform -Darguments="-Dmaven.javadoc.skip=true -Dmaven.test.skipTests=true -Dmaven.test.skip=true" -Dusername=${{ github.actor }} -Dpassword=${{ secrets.RELEASE_TOKEN }}
+#     - name: Prepare and Perform Maven Release
+#       run: mvn --batch-mode release:clean release:prepare release:perform -Darguments="-Dmaven.javadoc.skip=true -Dmaven.test.skipTests=true -Dmaven.test.skip=true" -Dusername=${{ github.actor }} -Dpassword=${{ secrets.RELEASE_TOKEN }}
 
-    - run: mvn deploy -s ${{ github.workspace }}/settings.xml
-      env:
-          GITHUB_USERNAME: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+#     - run: mvn deploy -s ${{ github.workspace }}/settings.xml
+#       env:
+#           GITHUB_USERNAME: ${{ github.actor }}
+#           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
