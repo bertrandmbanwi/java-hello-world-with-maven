@@ -4,7 +4,7 @@
     <groupId>com.pluribus</groupId>
     <artifactId>hello-world</artifactId>
     <packaging>jar</packaging>
-    <version>0.1.33-SNAPSHOT</version>
+    <version>0.1.33</version>
     <url>http://maven.apache.org</url>
 
     <scm>
