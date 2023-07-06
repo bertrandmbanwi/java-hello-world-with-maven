@@ -4,14 +4,14 @@
     <groupId>com.pluribus</groupId>
     <artifactId>hello-world</artifactId>
     <packaging>jar</packaging>
-    <version>0.1.31-SNAPSHOT</version>
+    <version>0.1.33-SNAPSHOT</version>
     <url>http://maven.apache.org</url>
 
     <scm>
         <url>https://github.com/bertrandmbanwi/java-hello-world-with-maven.git</url>
         <connection>scm:git:https://github.com/bertrandmbanwi/java-hello-world-with-maven.git</connection>
         <developerConnection>scm:git:https://github.com/bertrandmbanwi/java-hello-world-with-maven.git</developerConnection>
-        <tag>0.1.30</tag>
+        <tag>0.1.33</tag>
     </scm>
 
     <distributionManagement>
