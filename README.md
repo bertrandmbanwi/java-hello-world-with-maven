@@ -1,2 +1,2 @@
 # java-hello-world-with-maven...
-Testing
+Testing maven configuration
