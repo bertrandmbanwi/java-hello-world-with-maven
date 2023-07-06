@@ -32,6 +32,7 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Publish to GitHub Packages Apache Maven
+      if: github.ref == 'refs/heads/main'
       uses: whelk-io/maven-settings-xml-action@v21
       with:
         repositories: >-
@@ -50,7 +51,9 @@ jobs:
             }
           ]
 
-    - run: mvn deploy -s ${{ github.workspace }}/settings.xml
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      run: mvn deploy -s ${{ github.workspace }}/settings.xml
       env:
           GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
