@@ -11,7 +11,7 @@
         <url>https://github.com/bertrandmbanwi/java-hello-world-with-maven.git</url>
         <connection>scm:git:https://github.com/bertrandmbanwi/java-hello-world-with-maven.git</connection>
         <developerConnection>scm:git:https://github.com/bertrandmbanwi/java-hello-world-with-maven.git</developerConnection>
-        <tag>0.1.28</tag>
+        <tag>0.1.30</tag>
     </scm>
 
     <distributionManagement>
