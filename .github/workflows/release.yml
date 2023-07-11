@@ -1,10 +1,10 @@
 name: Build, Publish, and Release on merge to main
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     
-    branches: 
-        - main 
+    branches: [ main ]
 
 jobs:
   build_publish_and_release:
