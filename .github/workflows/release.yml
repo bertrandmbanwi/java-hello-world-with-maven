@@ -3,18 +3,22 @@ name: Build, Publish, and Release on merge to main
 on:
   pull_request:
     types: [closed]
+<<<<<<< HEAD
     
     branches: [ main ]
+=======
+    branches: [main]
+>>>>>>> 192a0139609ad1400db32d2c2f4c765fff674385
 
 jobs:
   build_publish_and_release:
-    
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
       with:
-        ref: ${{ github.head_ref }}
+        ref: ${{ github.event.pull_request.base.ref }}
         token: ${{ secrets.RELEASE_TOKEN }}
 
     - name: Set up JDK 11
