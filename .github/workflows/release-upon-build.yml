@@ -111,5 +111,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
     - name: Prepare and Perform Maven Release
+      if: github.ref =='refs/heads/main' && github.event.pull_request.merged == true
       run: mvn --batch-mode release:clean release:prepare release:perform -Darguments="-Dmaven.javadoc.skip=true -Dmaven.test.skipTests=true -Dmaven.test.skip=true" -Dusername=${{ github.actor }} -Dpassword=${{ secrets.RELEASE_TOKEN }}
 
