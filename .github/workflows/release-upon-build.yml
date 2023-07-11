@@ -8,7 +8,7 @@ on:
       - '!main'  # Except the main branch
   pull_request:
     types: [ closed ]  # Triggered when a pull request is closed
-    branches: [ main ] # Only when the pull request is into the main branch
+    
 
 jobs:
   build_and_publish:
