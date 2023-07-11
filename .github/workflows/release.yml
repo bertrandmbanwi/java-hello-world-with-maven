@@ -3,12 +3,7 @@ name: Build, Publish, and Release on merge to main
 on:
   pull_request:
     types: [closed]
-<<<<<<< HEAD
-    
     branches: [ main ]
-=======
-    branches: [main]
->>>>>>> 192a0139609ad1400db32d2c2f4c765fff674385
 
 jobs:
   build_publish_and_release:
