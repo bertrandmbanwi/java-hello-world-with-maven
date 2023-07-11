@@ -2,10 +2,10 @@ name: Build, Publish, and Release to GitHub Packages
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - '**'  # Triggered by any push to any branch
-      - '!main'  # Except the main branch
+  # push:
+  #   branches:
+      # - 'main'  # Triggered by any push to any branch
+      # - '!main'  # Except the main branch
   pull_request:
     types: [ closed ]  # Triggered when a pull request is closed
     
@@ -28,13 +28,13 @@ jobs:
         server-id: github
         settings-path: ${{ github.workspace }}
 
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+    # - name: Build with Maven
+      # run: mvn -B package --file pom.xml
 
-    - name: Publish to GitHub Packages Apache Maven
+    # - name: Publish to GitHub Packages Apache Maven
       if: github.ref == 'refs/heads/main'
-      uses: whelk-io/maven-settings-xml-action@v21
-      with:
+      # uses: whelk-io/maven-settings-xml-action@v21
+      # with:
         repositories: >-
           [
             {
@@ -51,9 +51,9 @@ jobs:
             }
           ]
 
-    - name: Deploy to GitHub Pages
+    # - name: Deploy to GitHub Pages
       if: github.ref == 'refs/heads/main'
-      run: mvn deploy -s ${{ github.workspace }}/settings.xml
+      # run: mvn deploy -s ${{ github.workspace }}/settings.xml
       env:
           GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
