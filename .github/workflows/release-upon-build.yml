@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - '**'  # Triggered by any push to any branch
-      - '!main'  # Except the main branch
+      - 'main'  # Triggered by any push to any branch
+      # - '!main'  # Except the main branch
   pull_request:
     types: [ closed ]  # Triggered when a pull request is closed
     
